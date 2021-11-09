@@ -27,13 +27,23 @@ const exportUser = async (req, res) => {
   });
 
   try {
-    const data = await workbook.xlsx.writeFile(`${path}/users.xlsx`);
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader("Content-Disposition", `attachment; filename=users.xlsx`);
 
-    res.send({
-      status: "success",
-      message: "file successfully downloaded",
-      path: `${path}/users.xlsx`,
+    return workbook.xlsx.write(res).then(() => {
+      res.status(200);
     });
+
+    // await workbook.xlsx.writeFile(`${path}/users.xlsx`).then(() => {
+    //   res.send({
+    //     status: "success",
+    //     message: "file successfully downloaded",
+    //     path: `${path}/users.xlsx`,
+    //   });
+    // });
   } catch (err) {
     res.send({
       status: "error",

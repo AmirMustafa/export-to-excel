@@ -1,6 +1,6 @@
 // Get data from database
 
-// Fake data
+// Sample data
 
 const User = [
   { fname: "Amir", lname: "Mustafa", email: "amir@gmail.com", gender: "Male" },
